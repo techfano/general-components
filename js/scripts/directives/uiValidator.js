@@ -1,0 +1,101 @@
+define(['app'], function (app) {
+
+    app.constant('expression',{
+
+        'letters': /^[a-zA-Z\ñ\s\&]*$/,
+        'integer': /^\-?\d+$/,
+        'correo': /^[A-Za-z0-9_-]{1}[[A-Za-z0-9._-]{2,62}[A-Za-z0-9_-]{1}]?@[A-Za-z0-9.-]{1,191}\.[A-Za-z]{2,63}$/,
+        'alphanumeric': /^[0-9a-zA-Z\s\'\-\/\&\(\)\.-]*$/,
+        'text': /^[a-zA-Z0-9\s\'\-\.\/\&-]*$/,
+        'numbers': /^[0-9]*$/,
+        'zip-code': /^\d{5}(?:[-]{0,1}\d{4})?$/
+    
+    });
+
+    app.constant('message',{
+
+        'validations': {
+            'maxlength': function (longitud) {
+                return 'Solo esta permitido un maximo de ' + longitud + ' caracteres';
+            },
+            'minlength': function (longitud) {
+                return 'Solo esta permitido un minimo de ' + longitud + ' caracteres';
+            },
+            'required': 'Este campo es requerido'
+        }
+    
+    });
+
+    app.directive('uiValidator', ['$timeout', function(){
+        var directive = {
+                scope: {
+                    message: '@validatorMessage'
+                },
+                restrict: 'A',
+                require: 'ngModel',
+                link: link
+            };
+
+        return directive;
+
+        function link($scope, $element, $attr, ctrl) {
+            var regex = new RegExp(expression[$attr.validatorExpression]);
+            angular.element($element).on('keyup', function (/*ev*/) {
+                    var valid = regex.test(ctrl.$viewValue);
+                    applyValidation(valid);
+                    ctrl.$setValidity('validate', valid);
+                    console.log($attr);
+            });
+            var applyValidation = function (valid) {
+                if (valid) {
+                    deleteMessage();
+                    required();
+                } else {
+                    addMessage($scope.message);
+                }
+            };
+            var required = function () {
+                if (ctrl.$error.required) {
+                    addMessage(message.validations.required);
+                } else {
+                    length();
+                }
+            };
+            var length = function () {
+                if (ctrl.$error.maxlength) {
+                    addMessage(message.validations.maxlength($attr.ngMaxlength));
+                } else {
+                    if (ctrl.$error.minlength) {
+                        addMessage(message.validations.minlength($attr.ngMinlength));
+                    }else{
+                        deleteMessage();
+                        console.log('no');
+                    }
+                }
+            };
+            var addMessage = function (message) {
+
+                var error='<div id="alert_'+$attr.id+'" class="alert alert-danger"'+
+                        ' role="alert" aria-live="polite">'+
+                        '   <div class="alert-danger-head">'+
+                        '       <span class="ci ci-error"></span>'+
+                                message +
+                        '   </div>'+
+                        '</div>';
+
+
+                angular.element('#alert_'+$attr.id).remove();
+                angular.element($element).before(error);
+
+            };
+            var deleteMessage = function () {
+                angular.element('#alert_'+$attr.id).remove();
+            };
+        }
+    }]);
+});
+
+
+
+
+

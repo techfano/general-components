@@ -1,0 +1,41 @@
+<h1>uiValidator</h1>
+<p>
+This is a directive for customizing diferents validaton through of defined and your own regular expressions that you can modify or replace in the next constan in to the file
+</p>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Constant of Regular Expressions</h3>
+    </div>
+    <div class="panel-body">
+        <pre>
+			<code>
+				
+	app.constant('expression',{
+
+	        'letters': /^[a-zA-Z\ñ\s\&]*$/,
+	        'integer': /^\-?\d+$/,
+	        'correo': /^[A-Za-z0-9_-]{1}[[A-Za-z0-9._-]{2,62}[A-Za-z0-9_-]{1}]?@[A-Za-z0-9.-]{1,191}\.[A-Za-z]{2,63}$/,
+	        'alphanumeric': /^[0-9a-zA-Z\s\'\-\/\&\(\)\.-]*$/,
+	        'text': /^[a-zA-Z0-9\s\'\-\.\/\&-]*$/,
+	        'numbers': /^[0-9]*$/,
+	        'zip-code': /^\d{5}(?:[-]{0,1}\d{4})?$/
+	    
+	});
+
+			</code>
+		</pre>
+    </div>
+</div>
+
+<div class="panel panel-success">
+    <div class="panel-heading">
+    	<h3 class="panel-title">Panel title</h3>
+	</div>
+	<div class="panel-body">
+
+		
+		
+	</div>
+</div>
+
+

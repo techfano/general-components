@@ -4,7 +4,7 @@ define(['app'], function (app) {
 
         'letters': /^[a-zA-Z\ñ\s\&]*$/,
         'integer': /^\-?\d+$/,
-        'correo': /^[A-Za-z0-9_-]{1}[[A-Za-z0-9._-]{2,62}[A-Za-z0-9_-]{1}]?@[A-Za-z0-9.-]{1,191}\.[A-Za-z]{2,63}$/,
+        'mail': /^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$/,
         'alphanumeric': /^[0-9a-zA-Z\s\'\-\/\&\(\)\.-]*$/,
         'text': /^[a-zA-Z0-9\s\'\-\.\/\&-]*$/,
         'numbers': /^[0-9]*$/,
@@ -26,7 +26,7 @@ define(['app'], function (app) {
     
     });
 
-    app.directive('uiValidator', ['$timeout', function(){
+    app.directive('uiValidator', ['expression','message', function(expression,message){
         var directive = {
                 scope: {
                     message: '@validatorMessage'
@@ -44,7 +44,6 @@ define(['app'], function (app) {
                     var valid = regex.test(ctrl.$viewValue);
                     applyValidation(valid);
                     ctrl.$setValidity('validate', valid);
-                    console.log($attr);
             });
             var applyValidation = function (valid) {
                 if (valid) {
@@ -68,8 +67,7 @@ define(['app'], function (app) {
                     if (ctrl.$error.minlength) {
                         addMessage(message.validations.minlength($attr.ngMinlength));
                     }else{
-                        deleteMessage();
-                        console.log('no');
+                        deleteMessage();                      
                     }
                 }
             };
@@ -83,13 +81,13 @@ define(['app'], function (app) {
                         '   </div>'+
                         '</div>';
 
-
-                angular.element('#alert_'+$attr.id).remove();
-                angular.element($element).before(error);
-
+                        
+                angular.element(document.getElementById('alert_'+$attr.id)).remove();
+                angular.element($element).after(error);
+               
             };
             var deleteMessage = function () {
-                angular.element('#alert_'+$attr.id).remove();
+                angular.element(document.getElementById('alert_'+$attr.id)).remove();
             };
         }
     }]);

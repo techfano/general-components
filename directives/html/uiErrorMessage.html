@@ -1,0 +1,7 @@
+<div id="error-message" class="alert" data-ng-class="typeAlert(type)" data-ng-show="showAlert" role="alert" aria-live="polite">
+	<div data-ng-class="typeAlertHead(type)">
+		<span class="ci ci-error"></span><!--<strong>{{'login.error.label' | translate}}</strong>--> {{newmessage | translate}}
+		<span class="ci ci-close" data-ng-show="showCloseButton" data-ng-click="showAlertMessage(false)">
+		</span>
+	</div>
+</div>

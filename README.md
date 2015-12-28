@@ -1,4 +1,4 @@
-# ui-components
+# general-components
 General Components for AngularJS and Bootstrap 3.3.1
 
 #Features

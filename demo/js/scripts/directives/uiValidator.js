@@ -2,9 +2,9 @@ define(['app'], function (app) {
 
     app.constant('expression',{
 
-        'letters': /^[a-zA-Z\ñ\s\&]*$/,
+       'letters': /^[a-zA-Z\ñ\s\&]*$/,
         'integer': /^\-?\d+$/,
-        'mail': /^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$/,
+        'correo': /^[A-Za-z0-9_-]{1}[[A-Za-z0-9._-]{2,62}[A-Za-z0-9_-]{1}]?@[A-Za-z0-9.-]{1,191}\.[A-Za-z]{2,63}$/,
         'alphanumeric': /^[0-9a-zA-Z\s\'\-\/\&\(\)\.-]*$/,
         'text': /^[a-zA-Z0-9\s\'\-\.\/\&-]*$/,
         'numbers': /^[0-9]*$/,

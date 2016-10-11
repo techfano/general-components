@@ -1,4 +1,4 @@
-//based on https://github.com/techfano/ng-components/
+//based on https://github.com/techfano/general-components
 (function() {
 	'use strict';
 	/*jshint latedef: false */
